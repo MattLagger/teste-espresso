@@ -1,1 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
+
+.login-container {
+    border: 1px solid red;
+    height: 100vh;
+
+    & > div {
+        height: 100%;
+    }
+
+    .card {
+        width: 500px;
+    }
+}
