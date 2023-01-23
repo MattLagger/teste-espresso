@@ -1,5 +1,8 @@
-class Concerns::AuthenticateWithOtpTwoFactorController < ApplicationController
-   def authenticate_with_otp_two_factor
+module AuthenticateWithOtpTwoFactor
+  extend ActiveSupport::Concern
+
+
+  def authenticate_with_otp_two_factor
     user = self.resource = find_user
 
     if user_params[:otp_attempt].present? && session[:otp_user_id]
@@ -52,4 +55,5 @@ class Concerns::AuthenticateWithOtpTwoFactorController < ApplicationController
   def otp_two_factor_enabled?
     find_user&.otp_required_for_login
   end
+
 end
