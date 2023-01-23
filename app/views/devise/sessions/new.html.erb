@@ -1,10 +1,11 @@
+<div class="container login-container">
+  <div class="d-flex justify-content-center align-items-center">
 <div class="card">
   <div class="card-header">Login</div>
   <div class="card-body">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <%= f.input :email, autofocus: true, autocomplete: 'email' %>
       <%= f.input :password, autocomplete: 'current-password' %>
-      <%= f.input :otp_attempt, label: 'OTP' %>
       <% if devise_mapping.rememberable? %>
         <%= f.input :remember_me, as: :boolean %>
       <% end %>
@@ -15,4 +16,6 @@
 
     <%= render "devise/shared/links" %>
   </div>
+</div>
+</div>
 </div>

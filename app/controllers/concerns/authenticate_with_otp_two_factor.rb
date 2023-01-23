@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module AuthenticateWithOtpTwoFactor
   extend ActiveSupport::Concern
-
 
   def authenticate_with_otp_two_factor
     user = self.resource = find_user
@@ -16,14 +17,14 @@ module AuthenticateWithOtpTwoFactor
 
   def valid_otp_attempt?(user)
     user.validate_and_consume_otp!(user_params[:otp_attempt]) ||
-        user.invalidate_otp_backup_code!(user_params[:otp_attempt])
+      user.invalidate_otp_backup_code!(user_params[:otp_attempt])
   end
 
   def prompt_for_otp_two_factor(user)
     @user = user
 
     session[:otp_user_id] = user.id
-    render 'devise/sessions/two_factor'
+    render('devise/sessions/two_factor')
   end
 
   def authenticate_user_with_otp_two_factor(user)
@@ -55,5 +56,4 @@ module AuthenticateWithOtpTwoFactor
   def otp_two_factor_enabled?
     find_user&.otp_required_for_login
   end
-
 end
