@@ -10,6 +10,9 @@ class User < ApplicationRecord
          otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
          otp_secret_encryption_key: ENV['OTP_SECRET_KEY']
 
+  validates :password, length: { min: 12, max: 36, allow_blank: false }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validate :password_requirements_are_met
   # Ensure that backup codes can be serialized
   serialize :otp_backup_codes, JSON
 
@@ -42,5 +45,18 @@ class User < ApplicationRecord
 
   def two_factor_backup_codes_generated?
     otp_backup_codes.present?
+  end
+
+  def password_requirements_are_met
+    rules = {
+      ' must contain at least one lowercase letter' => /[a-z]+/,
+      ' must contain at least one uppercase letter' => /[A-Z]+/,
+      ' must contain at least one digit' => /\d+/,
+      ' must contain at least one special character' => /[^A-Za-z0-9]+/
+    }
+
+    rules.each do |message, regex|
+      errors.add(:password, message) unless password.match(regex)
+    end
   end
 end
