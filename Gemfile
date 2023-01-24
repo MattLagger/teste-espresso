@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bootstrap'
 gem 'devise'
+gem 'recaptcha'
 gem 'devise-security'
 gem 'devise-two-factor'
 gem 'rqrcode'
