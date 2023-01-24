@@ -9,7 +9,6 @@ class SessionsController < Devise::SessionsController
 
   protect_from_forgery with: :exception, prepend: true, except: :destroy
 
-
   private
 
   def check_captcha
@@ -17,7 +16,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def alert_recaptcha
-    self.resource = resource_class.new sign_in_params
-    respond_with_navigational(resource) { render :new }
+    self.resource = resource_class.new(sign_in_params)
+    respond_with_navigational(resource) { render(:new) }
   end
 end
