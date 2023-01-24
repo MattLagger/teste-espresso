@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root to: 'welcome#index'
   resource :two_factor_settings, except: %i[index show]
   devise_for :users, controllers: {
     sessions: 'sessions',
