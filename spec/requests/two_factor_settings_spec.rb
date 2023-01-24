@@ -3,6 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe('TwoFactorSettings', type: :request) do
+  before do
+    @user = build(:user)
+    login_as @user
+  end
+
   describe 'GET /new' do
     it 'returns http success' do
       get '/two_factor_settings/new'
