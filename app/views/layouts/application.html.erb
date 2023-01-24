@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <%= render 'header' %>
+    <% end %>
     <% flash.each do |nome, mensagem| %>
       <div class="alert alert-danger">
         <%= content_tag :div, mensagem, class: nome %>
