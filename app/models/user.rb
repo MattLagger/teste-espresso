@@ -13,7 +13,6 @@ class User < ApplicationRecord
   validates :password, length: { min: 12, max: 36, allow_blank: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :password_requirements_are_met
-  # Ensure that backup codes can be serialized
   serialize :otp_backup_codes, JSON
 
   attr_accessor :otp_plain_backup_codes
