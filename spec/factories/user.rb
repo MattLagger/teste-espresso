@@ -17,6 +17,8 @@ FactoryBot.define do
 
     trait :with_otp do
       otp_required_for_login { true }
+      email { Faker::Internet.email }
+      password { 'Abc123!!defghaijklmnop%' }
 
       after(:build) do |user, _evaluator|
         user.otp_secret = User.generate_otp_secret

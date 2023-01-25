@@ -31,7 +31,6 @@ gem 'bootstrap'
 gem 'devise'
 gem 'devise-security'
 gem 'devise-two-factor'
-gem 'recaptcha'
 gem 'rqrcode'
 gem 'simple_form'
 

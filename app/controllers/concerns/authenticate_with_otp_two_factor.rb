@@ -29,7 +29,6 @@ module AuthenticateWithOtpTwoFactor
 
   def authenticate_user_with_otp_two_factor(user)
     if valid_otp_attempt?(user)
-      # Remove any lingering user data from login
       session.delete(:otp_user_id)
 
       remember_me(user) if user_params[:remember_me] == '1'
