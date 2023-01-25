@@ -12,7 +12,7 @@
 
   <body>
     <% if current_user %>
-      <%= render 'header' %>
+      <%= render 'shared/header' %>
     <% end %>
     <% flash.each do |nome, mensagem| %>
       <div class="alert alert-danger">

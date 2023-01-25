@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable, :lockable
+         :recoverable, :rememberable, :validatable, :lockable
 
   devise :two_factor_authenticatable, :two_factor_backupable,
          otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
@@ -13,7 +13,6 @@ class User < ApplicationRecord
   validates :password, length: { min: 12, max: 36, allow_blank: false }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :password_requirements_are_met
-  # Ensure that backup codes can be serialized
   serialize :otp_backup_codes, JSON
 
   attr_accessor :otp_plain_backup_codes
@@ -56,7 +55,7 @@ class User < ApplicationRecord
     }
 
     rules.each do |message, regex|
-      errors.add(:password, message) unless password.match(regex)
+      errors.add(:password, message) if !password.nil? && !password.match(regex)
     end
   end
 end

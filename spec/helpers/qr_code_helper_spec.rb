@@ -13,5 +13,12 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe(QrCodeHelper, type: :helper) do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'generate qr code' do
+    it 'generates svg qrcode' do
+      user = create(:user)
+      qr_code_uri = user.two_factor_qr_code_uri
+      qr_svg = qr_code_as_svg(qr_code_uri)
+      expect(qr_svg.present?).to(eq(true))
+    end
+  end
 end
