@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe('Otps::UserDisables', type: :feature) do
+RSpec.describe('Otps::UserDisables', type: :feature, js: true) do
   it 'disables otp for user' do
     user = create(:user, :with_otp)
     login_as(user)
