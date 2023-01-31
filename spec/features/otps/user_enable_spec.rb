@@ -19,14 +19,14 @@ RSpec.describe('Otps::UserEnables', type: :feature) do
     user.reload
 
     fill_in 'Code', with: user.otp(otp_secret).at(Time.zone.now)
-    fill_in 'Enter your current password', with: 'letmein'
-    click_button 'Confirm and Enable Two Factor'
+    fill_in 'Enter your current password', with: user.password
+    find_button('Confirm and Enable Two Factor').click
 
     user.reload
-    expect(page).to(have_content('Keep these backup codes safe in case you lose access to your authenticator app:'))
+    expect(page).to(have_content('Successfully 2FA is enabled. Take note of the backup codes.'))
 
     click_link('Return to account settings')
-    expect(page).to(have_content('2FA is enabled.'))
+    expect(page).to(have_content('Edit User'))
     expect(page).to(have_link('Disable Two Factor Authentication'))
   end
 end

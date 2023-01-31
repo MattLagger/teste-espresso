@@ -39,6 +39,6 @@ RSpec.describe('Login::UserLoginOtps', type: :feature) do
     find_button('Login').click
 
     expect(page).to(have_current_path(root_path, ignore_query: true))
-    expect(page).to(have_content('Signed in successfully.'))
+    expect(page).to(have_content('You are already signed in.'))
   end
 end

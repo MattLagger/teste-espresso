@@ -10,12 +10,13 @@ class User < ApplicationRecord
          otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
          otp_secret_encryption_key: ENV['OTP_SECRET_KEY']
 
-  validates :password, length: { min: 12, max: 36, allow_blank: false }
+  validates :password, length: { min: 12, max: 36, allow_blank: false }, unless: :skip_password_validation
+
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :password_requirements_are_met
   serialize :otp_backup_codes, JSON
 
-  attr_accessor :otp_plain_backup_codes
+  attr_accessor :otp_plain_backup_codes, :skip_password_validation
 
   def generate_two_factor_secret_if_missing!
     return unless otp_secret.nil?

@@ -32,6 +32,7 @@ module AuthenticateWithOtpTwoFactor
       session.delete(:otp_user_id)
 
       remember_me(user) if user_params[:remember_me] == '1'
+      user.skip_password_validation = true
       user.save!
       sign_in(user, event: :authentication)
     else

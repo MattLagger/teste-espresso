@@ -9,6 +9,7 @@ class TwoFactorSettingsController < ApplicationController
       return redirect_to(edit_user_registration_path)
     end
 
+    current_user.skip_password_validation = true
     current_user.generate_two_factor_secret_if_missing!
   end
 
@@ -19,6 +20,7 @@ class TwoFactorSettingsController < ApplicationController
     end
 
     if current_user.validate_and_consume_otp!(enable_2fa_params[:code])
+      current_user.skip_password_validation = true
       current_user.enable_two_factor!
 
       flash[:notice] = 'Successfully 2FA is enabled. Take note of the backup codes.'
@@ -41,10 +43,12 @@ class TwoFactorSettingsController < ApplicationController
     end
 
     @backup_codes = current_user.generate_otp_backup_codes!
+    current_user.skip_password_validation = true
     current_user.save!
   end
 
   def destroy
+    current_user.skip_password_validation = true
     if current_user.disable_two_factor!
       flash[:notice] = '2FA disabled.'
       redirect_to(edit_user_registration_path)
