@@ -35,7 +35,6 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 require 'webdrivers/chromedriver'
-require 'rspec/rails'
 require 'factory_bot_rails'
 require 'capybara/rspec'
 require 'capybara/rails'

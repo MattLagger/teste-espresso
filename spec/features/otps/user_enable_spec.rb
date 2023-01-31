@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe('Otps::UserEnables', type: :feature) do
@@ -16,7 +18,7 @@ RSpec.describe('Otps::UserEnables', type: :feature) do
     click_link('Enable Two Factor Authentication')
     user.reload
 
-    fill_in 'Code', with: user.otp(otp_secret).at(Time.now)
+    fill_in 'Code', with: user.otp(otp_secret).at(Time.zone.now)
     fill_in 'Enter your current password', with: 'letmein'
     click_button 'Confirm and Enable Two Factor'
 
